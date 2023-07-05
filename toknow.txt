@@ -1,0 +1,105 @@
+
+// Login.js
+// import React, { useEffect, useState } from 'react'
+// import axios from 'axios'
+// export function Login() {
+//     // const [nombre, setNombre] = useState();
+//     const [email, setEmail] = useState();
+//     const [password, setPassword] = useState();
+//     const [datausario, setDatausuario] = useState()
+
+//     const API = 'http://localhost:1234/api/usuario'
+//     const handleSubmit = (e) => {
+//         e.preventDefault();
+//         const user_To_Login = {
+//             email: email,
+//             password: password
+//         }
+//         // hacer la peticion al backend
+//         axios.post(`${API}/ejemplo`)
+//         .then(res => {
+//             console.log(res.data)
+//         })
+//     }
+//     return (
+//         <div className="row" >
+//             <div className="col-md-6">
+//                 <form onSubmit={handleSubmit} className="card card-body">
+//                     {/* para el emails */}
+//                     <div className="form-group">
+//                         <input type="email"
+//                             onChange={e => setEmail(e.target.value)}
+//                             value={email}
+//                             className="form-control"
+//                             placeholder="Email"
+//                         />
+//                     </div>
+//                     <br></br>
+//                     {/* para la contrase;a */}
+//                     <div className="form-group">
+//                         <input type="password"
+//                             onChange={e => setPassword(e.target.value)}
+//                             value={password}
+//                             className="form-control"
+//                             placeholder="Password"
+//                         />
+//                     </div>
+//                     <br></br>
+
+//                     <button className="btn btn-primary btn-block">
+//                         Login
+//                     </button>
+//                 </form>
+//             </div>
+//             {/* SHOW THE USERS WE GOT IN THE DB  */}
+
+//         </div >
+//     )
+// }
+--------------------------
+App.js
+import React, { useState } from 'react'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+
+
+import { Login } from "./components/Login";
+function App() {
+  const [isOnline, setIsOnline] = useState(false);
+
+  return (
+    <div className='container'>
+      <h1>Este es la App</h1>
+      <Login/>
+    </div>
+  );
+}
+
+export default App;
+import React from "react";
+
+export default function App() {
+   useEffect(() => {
+    axios.get('http://localhost:5000/api/usuario/obtenerUsuarios') 
+    .then(res => {
+      console.log(res.data)
+
+    }).catch(err => {
+      console.log(err)
+    })
+  }, [])
+  const ManejarBo = async () => {
+   
+    alert('done')
+    // await axios.get('https://jsonplaceholder.typicode.com/users')
+    //   .then(res => {
+    //     console.log(res.data)
+    //   })
+    //   .catch(err => console.log(err))
+    }
+    return (
+      <div className="container">
+        <h1>Maikel</h1>
+        <button onClick={ManejarBo}>Click!</button>
+      </div>
+    );
+  }
