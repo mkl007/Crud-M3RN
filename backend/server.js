@@ -5,7 +5,7 @@ const mongoos = require('mongoose');
 
 // Importar la conexion base de datosc
 // const archivoDB = require('./conexion')
-// const archivoDB = require('./config/conexion')
+const conexion = require('./config/conexion')
 
 // importar la configuracion del .env
 const config = require('./config/config')
@@ -37,5 +37,5 @@ app.get('/', (req, res) => {
 
 // config el server basico
 app.listen(config.port, function () {
-    console.log('Servidor en el puerto 5000')
+    console.log(`Server on ${config.port}`)
 })
