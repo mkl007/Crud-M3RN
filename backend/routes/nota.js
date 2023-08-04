@@ -11,10 +11,11 @@ const noteController = require('../controllers/noteController');
 routerNote.get('/ejemplo', verifyToken, noteController.example);
 
 // Ruta para crear notas del usuario
-routerNote.post('/:id/crear',verifyToken, noteController.createNote);
+// routerNote.post('/:id/crear',verifyToken, noteController.createNote);
+routerNote.post('/crear',verifyToken, noteController.createNote);
 
 // Ruta para ver todas las notas de un solo ID
-routerNote.get('/:id/', verifyToken, noteController.getAllNotes);
+routerNote.get('/', verifyToken, noteController.getAllNotes);
 
 // Ruta para editar una nota específica
 routerNote.put('/:id/editar/:nota_id', verifyToken, noteController.editNote);

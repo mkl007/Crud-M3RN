@@ -1,0 +1,43 @@
+import React from 'react'
+import { useAuth } from '../context/authContext'
+
+export default function HomePage() {
+  const { isAuthenticated } = useAuth()
+  return (
+    <div className='container' style={{ marginTop: "15px" }}>
+
+      <div className="row">
+        <h3>HomePage</h3>
+        {isAuthenticated ? (
+          <div>
+            <strong><p><b>Esta es la pagina para los que estan autenticados</b></p></strong>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Esse officia similique unde ab sapiente ducimus voluptatum dolore,
+              ratione aperiam, hic minima iusto repellat eius nulla a exercitationem commodi alias saepe!</p>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Esse officia similique unde ab sapiente ducimus voluptatum dolore,
+              ratione aperiam, hic minima iusto repellat eius nulla a exercitationem commodi alias saepe!</p>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Esse officia similique unde ab sapiente ducimus voluptatum dolore,
+              ratione aperiam, hic minima iusto repellat eius nulla a exercitationem commodi alias saepe!</p>
+          </div>
+        ) : (
+          <div>
+
+            <strong><p><b>Esta es la pagina para los que no estan autenticados</b></p></strong>
+
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Esse officia similique unde ab sapiente ducimus voluptatum dolore,
+              ratione aperiam, hic minima iusto repellat eius nulla a exercitationem commodi alias saepe!</p>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Esse officia similique unde ab sapiente ducimus voluptatum dolore,
+              ratione aperiam, hic minima iusto repellat eius nulla a exercitationem commodi alias saepe!</p>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Esse officia similique unde ab sapiente ducimus voluptatum dolore,
+              ratione aperiam, hic minima iusto repellat eius nulla a exercitationem commodi alias saepe!</p>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}

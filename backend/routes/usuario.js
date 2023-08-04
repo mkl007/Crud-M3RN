@@ -25,4 +25,7 @@ routerUser.get('/dashboard',verifyToken, userController.dashboard);
 // Ruta para logout
 routerUser.post('/logout', userController.logoutUser);
 
+// ruta para verificar el token
+routerUser.get('/verify', userController.verifyTokenRoute)
+
 module.exports = routerUser;

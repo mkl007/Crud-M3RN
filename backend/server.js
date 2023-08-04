@@ -16,11 +16,19 @@ const rutasUsuario = require('./routes/usuario')
 const rutasNota = require('./routes/nota')
 //importar el bodyparser
 const bodyParser = require('body-parser')
+
+// importar cookie-parser
+const cookieParser = require('cookie-parser')
+
+app.use(cookieParser());
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: 'true'}))
 // Habilitar CORS para todas las rutas
-app.use(cors());
-
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
+// app.use(cors());
 
 //aqui para usar las rutas del usuario
 app.use('/api/usuario', rutasUsuario)

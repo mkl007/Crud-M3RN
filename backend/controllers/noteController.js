@@ -18,51 +18,98 @@ exports.example = (req, res) => {
 };
 
 // Controlador para crear notas del usuario
+// exports.createNote = async (req, res, next) => {
+//     // Tu lógica para crear una nueva nota
+//     const { titulo, descripcion, idusuario } = req.body;
+//     // const idParams = req.params.id;
+//     // const idusuario = req.body.id; // Obtener el ID del usuario desde el cuerpo de la solicitud
+
+
+//     try {
+//         const miNota = new ModeloNota({
+//             titulo,
+//             descripcion,
+//             fecha_creada: new Date(),
+//             idusuario
+//         })
+//         const guardar = await miNota.save();
+//         if (!guardar) {
+//             res.status(501).send("Error al guardar")
+//         }
+//         res.json({ msg: "nota creada", guardar });
+
+
+//     } catch (error) {
+//         res.status(500).json({ error, msg: "This section falied" })
+//     }
+
+// };
 exports.createNote = async (req, res, next) => {
-    // Tu lógica para crear una nueva nota
-    const { titulo, descripcion } = req.body;
-    const idParams = req.params.id;
+    const { titulo, descripcion, idusuario } = req.body;
+    const currentDate = new Date();
+    const formattedDate = `${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`;
+
 
     try {
         const miNota = new ModeloNota({
             titulo,
             descripcion,
-            fecha_creada: new Date(),
-            idusuario: idParams,
-        })
+            fecha_creada: formattedDate,
+            idusuario,
+        });
         const guardar = await miNota.save();
         if (!guardar) {
-            res.status(501).send("Error al guardar")
+            res.status(501).send("Error al guardar");
         }
-        res.json({ msg: "nota creada" });
-
-
+        res.json({ msg: "nota creada", guardar });
     } catch (error) {
-        res.status(500).json({ error, msg: "This section falied" })
+        res.status(500).json({ error, msg: "This section failed" });
     }
-
 };
 
 // Controlador para ver todas las notas de un solo ID
+// exports.getAllNotes = async (req, res, next) => {
+//     // Tu lógica para obtener todas las notas de un usuario específico
+//     const idrecivido = req.body.id
+//     // res.send(idrecivido)
+
+//     try {
+//         // const idrecivido = req.params.id
+//         const notas = await ModeloNota.find({ idusuario: '64c992aac215451daf9a4478' });
+//         if (!notas) {
+//             return res.send("No hay notas bro") 
+//             // console.log("No hay notas")
+//         }
+
+//         res.json({notas})
+
+//         // const notasJso = notas.map(nota => {
+//         //     return {
+//         //         titulo: nota.titulo,
+//         //         descripcion: nota.descripcion
+//         //     };
+//         // });
+
+//         // res.json(notasJso);
+//     } catch (err) {
+//         res.status(500).send({ error: 'Ocurrió un error mas mano' });
+//     }
+// };
 exports.getAllNotes = async (req, res, next) => {
-    // Tu lógica para obtener todas las notas de un usuario específico
+    const idusuario = req.userId; // Obtener el ID del usuario desde req.userId
+
     try {
-        const idrecivido = req.params.id
-        const notas = await ModeloNota.find({ idusuario: idrecivido });
-        res.send(notas)
+        const notas = await ModeloNota.find({ idusuario });
+        if (!notas) {
+            return res.send("No hay notas");
+        }
 
-        // const notasJso = notas.map(nota => {
-        //     return {
-        //         titulo: nota.titulo,
-        //         descripcion: nota.descripcion
-        //     };
-        // });
-
-        // res.json(notasJso);
+        res.send(notas);
     } catch (err) {
-        res.status(500).send({ error: 'Ocurrió un error mas mano' });
+        res.status(500).send({ error: 'Ocurrió un error' });
     }
 };
+
 
 // Controlador para editar una nota específica
 exports.editNote = async (req, res, next) => {
