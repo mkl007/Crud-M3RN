@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
-import { registerRequest, loginRequest, verifyTokenRequest } from "../api/auth";
+import { registerRequest, loginRequest, verifyTokenRequest, logoutRequest } from "../api/auth";
 // import { set } from "react-hook-form";
 const Cookies = require('js-cookie')
 
@@ -27,7 +27,6 @@ export const AuthProvider = ({ children }) => {
             setUser(res.data)
             setIsAuthenticated(true)
         } catch (error) {
-            // console.log(error.response)
             setErrors(error.response.data)
         }
     };
@@ -35,16 +34,28 @@ export const AuthProvider = ({ children }) => {
     const signin = async (user) => {
         try {
             const res = await loginRequest(user)
-            console.log(res)
+            console.log(res.data)
+            // alert(res.data)
             setIsAuthenticated(true);
             setUser(res.data)
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             if (Array.isArray(error.response.data)) {
                 return setErrors(error.response.data)
+
             }
             setErrors(error.response.data.message)
+            // setErrors(['Ya tu te la sabes bro'])
         }
+        
+    }
+
+    const logout = async () => {
+        const res = await logoutRequest();
+        // console.log(res)
+        setIsAuthenticated(false);
+        setUser(null)
+
     }
 
     useEffect(() => {
@@ -78,7 +89,7 @@ export const AuthProvider = ({ children }) => {
                 setLoading(false)
 
             } catch (error) {
-                console.log(error)
+                // console.log(error)
                 setIsAuthenticated(false)
                 setUser(null)
                 setLoading(false)
@@ -93,6 +104,7 @@ export const AuthProvider = ({ children }) => {
         <AuthContext.Provider value={{
             signup,
             signin,
+            logout,
             user,
             loading,
             isAuthenticated,

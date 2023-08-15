@@ -20,6 +20,7 @@ export default function LoginPage() {
  
   useEffect(() => {
     if (isAuthenticated) navigate('/tasks')
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated])
 
   return (
@@ -27,7 +28,7 @@ export default function LoginPage() {
       <div className="row">
         <h1>Login</h1>
 
-        <div className="col-md-4">
+        <div className="col-md-6">
           {
             signinErrors.map((error, i) => (
               <span className="badge bg-danger" key={i}>{error}</span>

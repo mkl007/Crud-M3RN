@@ -49,15 +49,13 @@ exports.registerUser = async (req, res, next) => {
                     // res.cookie('nekot', token);
                     //send our cookie with the token
                     res.cookie("token", token, {
-                        httpOnly: true,
+                        httpOnly: false,
                         sameSite: 'none',
                         secure: true
                     },
                     );
-                    res.json({ msg: "User successfuly registered in ", nuevousuario, token })
+                    res.json(nuevousuario)
                 })
-            // res.send(nuevousuario);
-            // res.send(nuevousuario)
         }
         else {
             res.send("error message")
@@ -99,12 +97,13 @@ exports.loginUser = async (req, res, next) => {
                 // res.cookie('nekot', token);
                 //send our cookie with the token
                 res.cookie("token", token, {
-                    httpOnly: true,
+                    httpOnly: false,
                     sameSite: 'none',
                     secure: true
                 }
                 );
-                res.json({ msg: "User successfuly Logged in ", user})
+                // res.json({ msg: "User successfuly Logged in ", user})
+                res.json(user)
             })
 
     } catch (error) {

@@ -23,7 +23,8 @@ export default function HomePage() {
           </div>
         ) : (
           <div>
-
+            <button>Register</button>
+            <button>login</button>
             <strong><p><b>Esta es la pagina para los que no estan autenticados</b></p></strong>
 
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.

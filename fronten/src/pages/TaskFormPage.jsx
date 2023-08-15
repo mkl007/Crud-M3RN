@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form"
-import React from 'react'
+import { useState} from 'react'
 import { useTasks } from "../context/TaskContext";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
@@ -11,36 +11,25 @@ export default function TaskFormPage() {
   const { createTask } = useTasks();
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [saved, isSaved] = useState(false);
 
 
-  // const onSubmit = handleSubmit((data) => {
-  //   createTask(data);
-  //   console.log(user.id);
-  //   // console.log(user)
-
-  // });
-//   const onSubmit = handleSubmit((data) => {
-//   const taskData = {
-//     ...data,
-//     id: user.id, // Agregar el ID del usuario al objeto de datos
-//   };
-//   createTask(taskData);
-// });
 const onSubmit = handleSubmit(async (data) => {
   const taskData = {
     ...data,
-    idusuario: user.id, // Agregar el ID del usuario al objeto de datos
+    idusuario: user._id, // Agregar el ID del usuario al objeto de datos
   };
   try {
     await createTask(taskData);
-    console.log("Tarea creada exitosamente");
-    alert("Nota creada");
+    // alert("Nota creada");
+    isSaved(true)
     function ejecutar(){
       navigate('/tasks');
     }
     setTimeout(() => {
       ejecutar();
-    }, "3000");
+    }, "2500");
+ 
     
   } catch (error) {
     console.error("Error al crear tarea:", error);
@@ -50,7 +39,8 @@ const onSubmit = handleSubmit(async (data) => {
   return (
     <div className="container">
       <div className="row" >
-        <h1>New Task</h1>
+        { saved ? <h1>Note Saved :) ! </h1> : <h1>New Task</h1>}
+        
 
         <div className="col-md-4">
           <form onSubmit={onSubmit} className="card card-body">

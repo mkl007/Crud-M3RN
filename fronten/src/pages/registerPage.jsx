@@ -29,10 +29,6 @@ export function RegisterPage() {
         <div className="col-md-4">
           {
             RegisterErros.map((error, i) => (
-              // <div className="">
-              // {/* <div class="alert alert-dismissible alert-danger"> */}
-              //   {error}
-              // </div>
               <span className="badge bg-danger" key={i}>{error}</span>
 
             ))

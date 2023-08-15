@@ -12,4 +12,5 @@ export const updateTaskRequest = (task) => axios.put('/nota/tasks', task);
 
 export const deleteTaskRequest = (id) => axios.delete(`/nota/tasks/${id}`);
 
+export const verifyTokenRequestNota = () => axios.get('/verify');
 

@@ -44,24 +44,25 @@ exports.example = (req, res) => {
 //     }
 
 // };
+
+// Crear notas
 exports.createNote = async (req, res, next) => {
     const { titulo, descripcion, idusuario } = req.body;
     const currentDate = new Date();
     const formattedDate = `${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`;
-
 
     try {
         const miNota = new ModeloNota({
             titulo,
             descripcion,
             fecha_creada: formattedDate,
-            idusuario,
+            idusuario
         });
         const guardar = await miNota.save();
         if (!guardar) {
             res.status(501).send("Error al guardar");
         }
-        res.json({ msg: "nota creada", guardar });
+        res.json({ guardar });
     } catch (error) {
         res.status(500).json({ error, msg: "This section failed" });
     }
@@ -149,4 +150,22 @@ exports.deleteNote = async (req, res, next) => {
         console.error(err);
         res.status(500).send('Error al eliminar la nota');
     }
+};
+
+exports.verifyTokenRouteNota = async (req, res) => {
+    const { token } = req.cookies;
+    if (!token) return res.status(401).json({ msg: "Unauthorized" })
+
+    jwt.verify(token, config.SUPERSECRET, async (err, user) => {
+        if (err) return res.status(401).json({ msg: "Unauthorized" });
+
+        const userFound = await ModeloUsuario.findById(user.id);
+        if (!userFound) return res.status(401).json({ msg: "Unauthorized" });
+
+        return res.json({
+            id: userFound._id,
+            nombre: userFound.nombre,
+            email: userFound.email,
+        });
+    });
 };
