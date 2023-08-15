@@ -1,7 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { createTaskRequest, getTasksRequest } from "../api/task";
-// import { useAuth } from "./authContext";
-// import {  verifyTokenRequest } from "../api/task";
+import { createTaskRequest, getTasksRequest, deleteTaskRequest } from "../api/task";
 
 
 const TaskContent = createContext();
@@ -16,14 +14,9 @@ export const useTasks = () => {
 }
 
 
-
 export function TaskProvider({ children }) {
     const [tasks, setTasks] = useState([]);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    // const [user, setUser] = useState(null)
-
-    // const { user } = useAuth()
-
 
     const createTask = async (task) => {
         const res = await createTaskRequest(task);
@@ -41,9 +34,26 @@ export function TaskProvider({ children }) {
             console.log(error)
         }
     }
+
+    const deleteTask = async (id) => {
+        try {
+            console.log('ello')
+
+            const res = await deleteTaskRequest(id);
+            console.log(res)
+            if (res.status === 204) {
+                setTasks(tasks.filter(task => task._id !== id))
+
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         // <TaskContent.Provider value={{ tasks, createTask, getTasks }}>
-        <TaskContent.Provider value={{ tasks, createTask, getTasks, isAuthenticated }}>
+        <TaskContent.Provider value={{ tasks, createTask, getTasks, isAuthenticated, deleteTask }}>
             {children}
         </TaskContent.Provider>
     )

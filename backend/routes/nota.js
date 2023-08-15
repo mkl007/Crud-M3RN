@@ -21,6 +21,6 @@ routerNote.get('/', verifyToken, noteController.getAllNotes);
 routerNote.put('/:id/editar/:nota_id', verifyToken, noteController.editNote);
 
 // Ruta para eliminar una nota
-routerNote.delete('/:id/eliminar/:nota_id', verifyToken,  noteController.deleteNote);
+routerNote.delete('/tasks/:nota_id', verifyToken,  noteController.deleteNote);
 
 module.exports = routerNote;

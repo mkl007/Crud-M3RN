@@ -37,7 +37,7 @@ export default function NavBar() {
                                     </li>
                                 </ul>
                                 <ul className="navbar-nav">
-                                    {user._id}
+                                    {/* {user._id} */}
                                     <li className="nav-item">
                                         <button onClick={logoutFunction}><Link className="nav-link" >Logout</Link></button>
                                     </li>

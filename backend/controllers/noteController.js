@@ -144,8 +144,8 @@ exports.deleteNote = async (req, res, next) => {
         const response = await ModeloNota.findByIdAndDelete({
             _id: nota_id
         });
-        console.log(`Nota eliminada!`);
-        //   res.send(response);
+        // console.log(`Nota eliminada!`);
+          res.status(204).send(response);
     } catch (err) {
         console.error(err);
         res.status(500).send('Error al eliminar la nota');
