@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 // import { useAuth } from '../context/authContext'
 import { useTasks } from '../context/TaskContext';
+import { Link } from 'react-router-dom'
 
 
 
@@ -25,7 +26,10 @@ export default function VerNotas() {
                         </ul>
                         <button className='btn btn-danger' onClick={() => { deleteTask(task._id) }}> Eliminar</button>
                         &nbsp;
-                        <button className='btn btn-outline-primary'> Editar</button>
+                        {/* <button className='btn btn-outline-primary'> Editar</button> */}
+                        <button className='btn btn-outline-primary'>
+                            <Link to={`/tasks/${task._id}`}>Edit</Link>
+                        </button>
                         <hr className="mt-4" />
                     </div>
                 </div>

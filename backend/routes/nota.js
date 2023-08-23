@@ -17,10 +17,14 @@ routerNote.post('/crear',verifyToken, noteController.createNote);
 // Ruta para ver todas las notas de un solo ID
 routerNote.get('/', verifyToken, noteController.getAllNotes);
 
+// Ruta para ver una single nota
+routerNote.get('/:nota_id', verifyToken, noteController.getNote)
+
 // Ruta para editar una nota específica
-routerNote.put('/:id/editar/:nota_id', verifyToken, noteController.editNote);
+routerNote.put('/:nota_id', verifyToken, noteController.editNote);
 
 // Ruta para eliminar una nota
-routerNote.delete('/tasks/:nota_id', verifyToken,  noteController.deleteNote);
+// routerNote.delete('/tasks/:nota_id', verifyToken,  noteController.deleteNote);
+routerNote.delete('/:nota_id', verifyToken,  noteController.deleteNote);
 
 module.exports = routerNote;

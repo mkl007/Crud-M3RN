@@ -111,14 +111,26 @@ exports.getAllNotes = async (req, res, next) => {
     }
 };
 
+// Controlador para obtener una solo nota
+exports.getNote = async (req, res, next) => {
+    const id_note = req.params.nota_id
+    try {
+        const task = await ModeloNota.findById({ _id: id_note });
+        
+        if (!task) return res.status(404).json({ msg: "Task no found" })
+        res.json(task)
+    } catch (error) {
+        return res.status(404).json({ msg: "Catch error" })
+    }
+}
 
 // Controlador para editar una nota específica
 exports.editNote = async (req, res, next) => {
     // Tu lógica para editar una nota específica
     try {
-        const id_user = req.params.id
+        // const id_user = req.params.id
         const id_note = req.params.nota_id
-        const editedNota = await ModeloNota.findByIdAndUpdate({ idusuario: id_user, _id: id_note },
+        const editedNota = await ModeloNota.findByIdAndUpdate({ _id: id_note },
             {
                 titulo: req.body.titulo,
                 descripcion: req.body.descripcion,
@@ -128,7 +140,7 @@ exports.editNote = async (req, res, next) => {
         if (!editedNota) {
             res.send("Error al editar la nota");
         }
-        res.json({ msg: "Nota editada" });
+        res.json({ msg: "Nota editada", editedNota });
 
 
     } catch (error) {
@@ -145,7 +157,7 @@ exports.deleteNote = async (req, res, next) => {
             _id: nota_id
         });
         // console.log(`Nota eliminada!`);
-          res.status(204).send(response);
+        res.status(204).send(response);
     } catch (err) {
         console.error(err);
         res.status(500).send('Error al eliminar la nota');
