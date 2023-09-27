@@ -16,4 +16,6 @@ taskRoute.put('/task/:idTask', verifyToken, editTask)
 
 taskRoute.delete('/task/:idTask', verifyToken, deleteTask)
 
+taskRoute.delete('/task/:idTask', verifyToken, deleteTask)
+
 export { taskRoute }

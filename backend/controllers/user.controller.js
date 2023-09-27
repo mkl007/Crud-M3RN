@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
 import jwt from 'jsonwebtoken'
 import { UserModel } from '../models/user.model.js'
 import { config } from '../configs/config.js'
@@ -86,7 +84,7 @@ export const loginUser = async (req, res, next) => {
 
     const valiPassword = await user.validatePassword(password)
     if (!valiPassword) {
-      return res.status(401).json(['Email or password wrong'])
+      return res.status(400).json(['Email or password wrong'])
     }
     const token = jwt.sign({ id: user._id }, config.SUPERSECRET, {
       expiresIn: 60 * 60 * 24
@@ -118,19 +116,21 @@ export const dashboard = (req, res, next) => {
 }
 
 export const verifyTokenRoute = async (req, res) => {
-  // const { token } = req.cookies
-  // if (!token) return res.status(401).json({ msg: 'Unauthorized' })
+  const { token } = req.cookies
+  if (!token) return res.status(404).json({ msg: 'Unauthorized. Login required' })
 
-  // jwt.verify(token, config.SUPERSECRET, async (err, user) => {
-  //   if (err) return res.status(401).json({ msg: 'Unauthorized' })
+  jwt.verify(token, config.SUPERSECRET, async (err, user) => {
+    if (err) return res.status(404).json({ msg: 'Unauthorized, you are not authorized with the token' })
 
-  //   const userFound = await UserModel.findById(user.id)
-  //   if (!userFound) return res.status(401).json({ msg: 'Unauthorized' })
+    const userFound = await UserModel.findById(user.id)
+    if (!userFound) {
+      return res.status(404).json({ msg: 'Unauthorized, There is token but no user' })
+    }
 
-  //   return res.json({
-  //     id: userFound._id,
-  //     name: userFound.name,
-  //     email: userFound.email
-  //   })
-  // })
+    return res.json({
+      id: userFound._id,
+      name: userFound.name,
+      email: userFound.email
+    })
+  })
 }

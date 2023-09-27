@@ -16,11 +16,11 @@ app.use(bodyParser.urlencoded({ extended: 'true' }))
 connection()
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'http://localhost:5173',
   credentials: true
 }))
 
-app.use('/api/u/task', taskRoute)
+app.use('/api/u/tasks', taskRoute)
 app.use('/api/u', userRoute)
 
 app.listen(config.port, function () {
