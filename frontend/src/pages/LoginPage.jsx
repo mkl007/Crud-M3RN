@@ -17,9 +17,7 @@ export const LoginPage = () => {
         signin(data)
     })
 
-    // function reloadPage() {
-    //     window.location.reload();
-    // }
+
     useEffect(() => {
         if (isAuthenticated) navitage('/tasks')
     })

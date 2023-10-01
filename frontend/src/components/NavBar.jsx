@@ -10,9 +10,9 @@ export const NavBar = () => {
         logout();
     };
     return (
-        <div className='container'>
+        <div className=''>
 
-            <nav className="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+            <nav className="navbar fixed navbar-expand-xl bg-dark navbar-fixed-top" data-bs-theme="dark">
                 <div className="container-fluid">
                     <Link className="navbar-brand" to={'/'}>Tasks Manager</Link>
                     {isAuthenticated ? (

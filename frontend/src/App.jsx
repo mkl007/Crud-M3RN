@@ -10,7 +10,7 @@ import { NavBar } from './components/NavBar'
 import { TaskProvider } from './context/TaskContext'
 
 function App() {
-
+  
   return (
     <AuthProvider>
       <TaskProvider>

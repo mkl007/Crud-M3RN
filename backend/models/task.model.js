@@ -7,12 +7,12 @@ import dayjs from 'dayjs'
 const Eschema = mongoose.Schema
 
 const taskSchema = new Eschema({
-  title: { type: String, requred: true, trim: true },
-  description: { type: String, requred: true, trim: true },
-  userId: { type: String, requred: true, trim: true },
-  added: { type: Date, default: dayjs, requred: true, trim: true },
-  edited: { type: String, requred: true, trim: true },
-  completed: { type: Boolean, requred: true, trim: true }
+  title: { type: String, required: true, trim: true },
+  description: { type: String, required: true, trim: true },
+  userId: { type: String, required: true, trim: true },
+  added: { type: Date, default: dayjs, required: true, trim: true },
+  edited: { type: Date, required: false, trim: true }
+  // completed: { type: Boolean, required: true, trim: true }
 
 })
 

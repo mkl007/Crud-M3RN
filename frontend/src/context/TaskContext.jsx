@@ -15,7 +15,6 @@ export const useTasks = () => {
     return context;
 }
 
-
 // eslint-disable-next-line react/prop-types
 export function TaskProvider({ children }) {
     const [tasks, setTasks] = useState([]);
@@ -26,6 +25,7 @@ export function TaskProvider({ children }) {
             setTasks(res.data)
         }
         else {
+            // alert('error')
             console.log('Error in Taskcontext')
             // setTasks('No hya tareas')
         }

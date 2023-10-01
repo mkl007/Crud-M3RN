@@ -22,8 +22,9 @@ export const newTask = async (req, res) => {
   try {
     const { title, description, userId } = req.body
     const added = dayjs()
+    const edited = ''
     const newTask = new TaskModel({
-      title, description, userId, added
+      title, description, userId, added, edited
     })
 
     const addTask = await newTask.save()
@@ -70,14 +71,14 @@ export const getTask = async (req, res) => {
 
 export const editTask = async (req, res) => {
   try {
-    const userId = req.userId
+    const userId = req.userIds
     const idTask = req.params.idTask
     const findTask = await TaskModel.findByIdAndUpdate({ _id: idTask, userId },
       {
         title: req.body.title,
         description: req.body.description,
-        edited: new Date(),
-        completed: req.body.completed
+        edited: dayjs()
+        // completed: req.body.completed
       }, { new: true })
 
     if (!findTask) {
@@ -94,7 +95,7 @@ export const deleteTask = async (req, res) => {
   try {
     const userId = req.userId
     const idTask = req.params.idTask
-    const task = await TaskModel.findByIdAndDelete({ _id: idTask, userId })
+    await TaskModel.findByIdAndDelete({ _id: idTask, userId })
     res.status(204).json({ msg: 'task deleted' })
   } catch (err) {
     // console.error(err)3

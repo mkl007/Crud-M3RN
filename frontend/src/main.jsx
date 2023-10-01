@@ -5,8 +5,8 @@ import './index.css'
 
 
 // import 'bootswatch/dist/vapor/bootstrap.min.css'
-// import 'bootswatch/dist/darkly/bootstrap.min.css'
-import 'bootswatch/dist/lux/bootstrap.min.css'
+import 'bootswatch/dist/darkly/bootstrap.min.css'
+// import 'bootswatch/dist/lux/bootstrap.min.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

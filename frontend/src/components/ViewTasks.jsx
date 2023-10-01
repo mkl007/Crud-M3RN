@@ -2,10 +2,10 @@ import { useEffect } from 'react'
 import { useTasks } from '../context/TaskContext';
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
-import relativeTime from  'dayjs/plugin/relativeTime';
+import relativeTime from 'dayjs/plugin/relativeTime';
+//import { DeleteTaskComponent } from './DeleteTaskComponent';
+
 dayjs.extend(relativeTime);
-
-
 
 export const ViewTasks = () => {
     const { getTasks, tasks, deleteTask } = useTasks();
@@ -14,32 +14,42 @@ export const ViewTasks = () => {
         getTasks();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+    const divGrandContainerStyle = {
+        // border: "5px solid red",
+        display: "flex",
+        flexWrap: "wrap",
+        // height: "500px",
+        "@media screen and (maxWidth: 480px)": {
+            border: "5px solid black",
 
+        }
+    }
 
-
+    const divChildContainerStyle = {
+        // border: "2px solid yellow",
+        width: "250px",
+        margin: "10px",
+    }
 
     return (
-        <div className=''>
+        <div className='container ' style={divGrandContainerStyle}>
             {tasks.length > 0 ? (
                 tasks.map(task => (
-                    //desde aqui empieza la parte tomada de github
-                    <div key={task._id}>
-                        <div className="row">
-                            <div>
-                                <ul className="list-group">
-                                    {/* <li className="list-group-item" >{task._id}</li> */}
-                                    <li className="list-group-item"><h4>title: </h4>{task.title}</li>
-                                    <li className="list-group-item"><h4>Description: </h4>{task.description}</li>
-                                    <li className="list-group-item"><h4>Created: </h4>{dayjs(task.added).fromNow()}</li>
-                                </ul>
-                                <button className='btn btn-danger' onClick={() => { deleteTask(task._id) }}> Eliminar</button>
-                                &nbsp;
-                                <button className='btn btn-outline-primary'>
-                                    <Link to={`/tasks/${task._id}`}>Edit</Link>
-                                </button>
-                                <hr className="mt-4" />
+                    <div key={task._id} style={divChildContainerStyle}>
+                        <div className="card border-secondary mb-3" >
+                            <div className="card-header">Created: {dayjs(task.added).fromNow()}</div>
+                            {task.edited ? (<div className="card-header">Edited: {dayjs(task.edited).fromNow()}</div>) : (<div></div>)}
+                            <div className="card-body">
+                                <h4 className="card-title">{task.title}</h4>
+                                <p className="card-text">{task.description}</p>
                             </div>
                         </div>
+                        <button className='btn btn-danger' onClick={() => { deleteTask(task._id) }}> Done</button>
+                        &nbsp;
+                        <button className='btn btn-outline-info  primary'>
+                            <Link to={`/tasks/${task._id}`}>Edit</Link>
+                        </button>
+
                     </div>
 
                 ))
