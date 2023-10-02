@@ -22,6 +22,6 @@ Every function is intuitive and you have a brif information about what to expect
 
 
 # START SERVER
-DB: mongod
-Backend: Nodemon
-Frontend: npm run dev
+1. DB: mongod
+2. Backend: Nodemon
+3. Frontend: npm run dev
