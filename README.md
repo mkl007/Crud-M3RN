@@ -39,3 +39,9 @@ Backend:
 ### Note ##
 
 Every function is intuitive and you have a brif information about what to expect of those functions
+
+
+# START SERVER
+
+Backend: Nodemon
+Frontend: npm run dev
