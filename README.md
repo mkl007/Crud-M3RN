@@ -10,7 +10,7 @@ Backend:
 1. Mongod
 2. Nodemon Server.js
 
-Project setup FrontendÑ
+Project setup Frontend
 
 1. To start the frontend server you must install the dependencies by running (  npm i ) in your console.
 2. 2. Run =>   npm run dev
